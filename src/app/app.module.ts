@@ -20,6 +20,7 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { ConfiguracionComponent } from './components/configuracion/configuracion.component';
 import { NoEncontradoComponent } from './components/no-encontrado/no-encontrado.component';
 import { PiePaginaComponent } from './components/pie-pagina/pie-pagina.component';
+import { ClienteService } from './services/cliente.service';
 
 @NgModule({
   declarations: [
@@ -37,13 +38,13 @@ import { PiePaginaComponent } from './components/pie-pagina/pie-pagina.component
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig, 'control-cliente'),
+    AngularFireModule.initializeApp(environment.firebaseConfig, 'control-clientes'),
     AngularFireAuthModule,
     AngularFirestoreModule,
     FormsModule,
     FlashMessagesModule.forRoot()
   ],
-  providers: [],
+  providers: [ClienteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
