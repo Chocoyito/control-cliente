@@ -85,31 +85,114 @@
             </div>
 
             <div class="modal-body">
-                <form>
+
+                <!-- <flash-messages></flash-messages> -->
+
+                <form #f="ngForm" (ngSubmit)="agregarCliente(f)">
                     <div class="row">
-                        <div class="input-group col-md-12 mb-3">
-                            <label for="nombre" class="input-group-text">Nombre y apellido</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="Nombre">
-                            <input type="text" class="form-control" id="apellido"
-                            placeholder="Apellido">
-                        </div>
-
                         <div class="col-md-6 mb-3">
-                            <label for="floatingEmail">Correo electronico</label>
-                            <input type="email" class="form-control" placeholder="name@example.com" id="floatingEmail">
-                        </div>
 
-                        <div class="col-md-6 mb-3">
-                            <label for="floatingSaldo">Saldo</label>
-                            <input type="number" class="form-control" placeholder="Saldo" id="floatingSaldo">
+                            <label for="floatingNombre">Nombre</label>
+                            <input 
+                            type="text" 
+                            name="nombre"
+                            class="form-control" 
+                            id="floatingNombre" 
+                            placeholder="Nombre"
+                            #floatingNombre="ngModel"
+                            [(ngModel)]="cliente.nombre"
+                            required
+                            [ngClass]= "{'is-invalid': floatingNombre.errors && floatingNombre.touched }"
+                            minlength="2">  
+                            
+                            <div *ngIf="floatingNombre.errors?.['required']"
+                            class="invalid-feedback">
+                                El nombre es requerido.
+                            </div>
+                            <div *ngIf="floatingNombre.errors?.['minlength']" class="invalid-feedback">
+                                El nombre debe tener al menos 2 caracteres.
+                            </div>
+                        
                         </div>
                        
+
+                        <div class="col-md-6 mb-3">
+                            <label for="floatingApellido">Apellido</label>
+                            <input 
+                            name="apellido"
+                            type="text" 
+                            class="form-control" 
+                            id="floatingApellido" 
+                            placeholder="Apellido"
+                            #floatingApellido="ngModel"
+                            [(ngModel)]="cliente.apellido"
+                            required
+                            [ngClass]= "{'is-invalid': floatingApellido.errors && floatingApellido.touched }"
+                            minlength="2">
+
+                            <div *ngIf="floatingApellido.errors?.['required']"
+                            class="invalid-feedback">
+                                El apellido es requerido.
+                            </div>
+                            <div *ngIf="floatingApellido.errors?.['minlength']" class="invalid-feedback">
+                                El apellido debe tener al menos 2 caracteres.
+                            </div>
+                        </div>
+
+                      
+
+                        <div class="col-md-8 mb-3">
+                            <label for="floatingEmail">Correo electronico</label>
+                            <input 
+                            type="email" 
+                            name="email"
+                            class="form-control" 
+                            id="floatingEmail"
+                            placeholder="name@example.com" 
+                            #floatingEmail="ngModel"
+                            [(ngModel)]="cliente.email"
+                            required
+                            [ngClass]= "{'is-invalid': floatingEmail.errors && floatingEmail.touched }"
+                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"> 
+                            
+                            <div *ngIf="floatingEmail.errors?.['required']"
+                            class="invalid-feedback">
+                                El email es necesario.
+                            </div>
+                            <div *ngIf="floatingEmail.errors?.['pattern']" class="invalid-feedback">
+                                El email no es adecuado
+                            </div>
+                           
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="floatingSaldo">Saldo</label>
+                            <input 
+                            type="number" 
+                            class="form-control" 
+                            name="saldo"
+                            placeholder="Saldo" 
+                            id="floatingSaldo"
+                            #floatingSaldo="ngModel"
+                            [(ngModel)]="cliente.saldo"
+                            [ngClass]= "{'is-invalid': floatingSaldo.errors && floatingSaldo.touched }"
+                            required>
+                            
+                            <div *ngIf="floatingSaldo.errors?.['required']"
+                            class="invalid-feedback">
+                                El saldo es necesario.
+                            </div>
+                        </div>
+
+
+                    </div>       
+                    
+                    <div class="modal-footer">
+                        <button type="submit" [disabled]="!f.valid"  class="btn btn-primary">Agregar cliente</button>
                     </div>
-            
                 </form>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Agregar cliente</button>
-                </div>
+                
+                
             </div>
         </div>
     </div>
