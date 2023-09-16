@@ -17,16 +17,20 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private loginService: LoginService) { }
 
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loginService.getUsuarioAuth().subscribe(auth => {
+      if (auth)
+        this.router.navigate(['/']) // Nos encargamos que si el usuario desea volver al login sin haber cerrado sesion, lo mande de regreso a Inicio.
+    })
+  }
 
   login() {
     const { email, password } = this.loginObject
 
-    this.loginService.login({ email, password }).then(resolve => {
-      this.router.navigate(['/'])
-    })
-      .catch(error => {
-        this.router.navigate(['login'])
-    })
+    this.loginService.login({ email, password })
+    .then(resolve =>
+      this.router.navigate(['/']))
+    .catch(error => 
+      this.router.navigate(['login']))
   }
 }
