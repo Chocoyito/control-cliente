@@ -29,7 +29,34 @@ export class ClienteService{
         return this.clientes
     }
 
-    agregarCliente(cliente: Cliente){
+    agregarCliente(cliente: Cliente): void{
         this.clientesColeccion.add(cliente)
+    }
+
+    getCliente(id: string): Observable<Cliente>{
+        this.clienteDoc = this.db.doc<Cliente>(`cliente/${id}`)
+        this.cliente = this.clienteDoc.snapshotChanges().pipe(
+            map( accion =>{
+                if (accion.payload.exists){
+                    const datos = accion.payload.data() as Cliente
+                    datos.id = accion.payload.id
+                    return datos
+                }
+                else{
+                    return null
+                }
+            })
+        )
+        return this.cliente
+    }
+
+    editarCliente(cliente: Cliente){
+        this.clienteDoc = this.db.doc(`cliente/${cliente.id}`)
+        this.clienteDoc.update(cliente)
+    }
+
+    eliminarCliente(cliente: Cliente){
+        this.clienteDoc = this.db.doc(`cliente/${cliente.id}`)
+        this.clienteDoc.delete()
     }
 }

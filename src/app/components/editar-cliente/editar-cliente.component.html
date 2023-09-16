@@ -1,1 +1,151 @@
-<p>editar-cliente works!</p>
+<header id="main-header" class="py-2 bg-info text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>
+                    <i class="fas fa-user"></i> Editar cliente
+                </h1>
+            </div>
+        </div>
+    </div>
+</header>
+
+<form #f="ngForm" (ngSubmit)="editarCliente(f)">
+
+    <!-- Botones  -->
+
+    <section id="actions" class="py-4 mb-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <a routerLink="/" class="btn btn-light btn-block">
+                        <i class="fas fa-arrow-left"></i> Regresar a inicio
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success btn-block">
+                        <i class="fas fa-check"></i> Guardar cliente
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" (click)="eliminarCliente()" class="btn btn-danger btn-block">
+                        <i class="fas fa-trash"></i> Eliminar cliente
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Lista de clientes</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+    
+                                <label for="floatingNombre">Nombre</label>
+                                <input 
+                                type="text" 
+                                name="nombre"
+                                class="form-control" 
+                                id="floatingNombre" 
+                                placeholder="Nombre"
+                                #floatingNombre="ngModel"
+                                [(ngModel)]="cliente.nombre"
+                                required
+                                [ngClass]= "{'is-invalid': floatingNombre.errors && floatingNombre.touched }"
+                                minlength="2">  
+                                
+                                <div *ngIf="floatingNombre.errors?.['required']"
+                                class="invalid-feedback">
+                                    El nombre es requerido.
+                                </div>
+                                <div *ngIf="floatingNombre.errors?.['minlength']" class="invalid-feedback">
+                                    El nombre debe tener al menos 2 caracteres.
+                                </div>
+                            
+                            </div>
+                           
+                    
+                            <div class="col-md-6 mb-3">
+                                <label for="floatingApellido">Apellido</label>
+                                <input 
+                                name="apellido"
+                                type="text" 
+                                class="form-control" 
+                                id="floatingApellido" 
+                                placeholder="Apellido"
+                                #floatingApellido="ngModel"
+                                [(ngModel)]="cliente.apellido"
+                                required
+                                [ngClass]= "{'is-invalid': floatingApellido.errors && floatingApellido.touched }"
+                                minlength="2">
+                    
+                                <div *ngIf="floatingApellido.errors?.['required']"
+                                class="invalid-feedback">
+                                    El apellido es requerido.
+                                </div>
+                                <div *ngIf="floatingApellido.errors?.['minlength']" class="invalid-feedback">
+                                    El apellido debe tener al menos 2 caracteres.
+                                </div>
+                            </div>
+                    
+                          
+                    
+                            <div class="col-md-6 mb-3">
+                                <label for="floatingEmail">Correo electronico</label>
+                                <input 
+                                type="email" 
+                                name="email"
+                                class="form-control" 
+                                id="floatingEmail"
+                                placeholder="name@example.com" 
+                                #floatingEmail="ngModel"
+                                [(ngModel)]="cliente.email"
+                                required
+                                [ngClass]= "{'is-invalid': floatingEmail.errors && floatingEmail.touched }"
+                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"> 
+                                
+                                <div *ngIf="floatingEmail.errors?.['required']"
+                                class="invalid-feedback">
+                                    El email es necesario.
+                                </div>
+                                <div *ngIf="floatingEmail.errors?.['pattern']" class="invalid-feedback">
+                                    El email no es adecuado
+                                </div>
+                               
+                            </div>
+                    
+                            <div class="col-md-6 mb-3">
+                                <label for="floatingSaldo">Saldo</label>
+                                <input 
+                                type="number" 
+                                class="form-control" 
+                                name="saldo"
+                                placeholder="Saldo" 
+                                id="floatingSaldo"
+                                #floatingSaldo="ngModel"
+                                [(ngModel)]="cliente.saldo"
+                                [ngClass]= "{'is-invalid': floatingSaldo.errors && floatingSaldo.touched }"
+                                required>
+                                
+                                <div *ngIf="floatingSaldo.errors?.['required']"
+                                class="invalid-feedback">
+                                    El saldo es necesario.
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>       
+    </div>
+    
+</form>

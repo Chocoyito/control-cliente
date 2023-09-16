@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, NgProbeToken, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { FlashMessage } from 'angular2-flash-messages/module/flash-message';
@@ -22,6 +22,9 @@ export class ClientesComponent implements OnInit {
     email: '',
     saldo: 0
   }
+
+  @ViewChild('f') clienteForm: NgForm
+  @ViewChild('btnCerrar') btnCerrar: ElementRef
 
   ngOnInit(): void {
     this.clienteService.getClientes().subscribe(
@@ -48,6 +51,8 @@ export class ClientesComponent implements OnInit {
 
 
     this.clienteService.agregarCliente(value)
+    this.clienteForm.resetForm()
+    this.cerrarModal()
 
     // if (!valid){
     //   this.flashMessages.show('Por favor llene el formulario correctamente', {
@@ -57,4 +62,8 @@ export class ClientesComponent implements OnInit {
     // }
   }
 
+
+  private cerrarModal(){
+    this.btnCerrar.nativeElement.click()
+  }
 }
